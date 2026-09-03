@@ -1,0 +1,131 @@
+{
+  "brand": { "name": "SEI BI BOYE", "tagline": "Portfolio de terrain" },
+  "hero": {
+    "eyebrow": "Ingénieur des techniques agricoles · Côte d’Ivoire",
+    "titleBefore": "Du terrain à la",
+    "titleAccent": "décision",
+    "titleAfter": ".",
+    "lede": "Je conduis et sécurise des missions agricoles complexes : conformité EUDR, plantations pérennes, données géospatiales, mobilisation communautaire et supervision d’équipes de terrain.",
+    "ctaPrimary": "Parcourir les missions",
+    "cvLabel": "Télécharger le CV",
+    "cvUrl": "",
+    "imageUrl": "",
+    "tagLine1": "Atlas des missions",
+    "tagLine2": "Repère 05.7N · 06.6W",
+    "captionEyebrow": "Point de départ",
+    "captionBody": "Des données fiables, des équipes mobilisées, des décisions de terrain.",
+    "metrics": [
+      { "value": "13 000 ha", "label": "Zone encadrée" },
+      { "value": "1 200", "label": "Plantations EUDR" },
+      { "value": "4 sites", "label": "Inspectés" }
+    ]
+  },
+  "expertise": {
+    "eyebrow": "Champ d’action",
+    "title": "Une expertise qui relie technique, territoire et responsabilité.",
+    "intro": "Les missions sont menées avec une attention constante à la qualité des données, à la coordination humaine et à la transformation des constats en recommandations utilisables.",
+    "items": [
+      { "title": "Missions de terrain", "desc": "Planification, déploiement, contrôle qualité et rapports." },
+      { "title": "Conformité EUDR", "desc": "Géolocalisation, diligence raisonnée et non-conformités." },
+      { "title": "Plantations pérennes", "desc": "Palmier à huile, cacao, conseil agricole et productivité." },
+      { "title": "Données & cartographie", "desc": "KoboToolbox, QGIS, Excel et indicateurs de pilotage." }
+    ]
+  },
+  "missionsIntro": {
+    "eyebrow": "Carnet de missions",
+    "title": "Des preuves, pas seulement des intitulés.",
+    "desc": "Chaque référence rassemble le rôle, le contexte d’intervention, l’échelle et les contributions techniques."
+  },
+  "missions": [
+    {
+      "id": "eudr-soubre",
+      "title": "Conformité EUDR et traçabilité cacao",
+      "organization": "AINTELLIGENCE · Pour ICP / SCOPLUNOT",
+      "role": "Superviseur des travaux · Chef de mission",
+      "period": "Depuis mai 2026",
+      "location": "Base opérationnelle : Soubré · Villages supervisés : BALEYO, OTTAWA, ZOGBODOUA, TOLLAKRO",
+      "country": "Côte d’Ivoire",
+      "crops": ["Cacao"],
+      "sector": "Certification durable",
+      "metric": "1 200 plantations",
+      "summary": "Pilotage de la vérification EUDR depuis la base de Soubré, avec supervision des travaux dans les villages de BALEYO, OTTAWA, ZOGBODOUA et TOLLAKRO : planification du chantier, encadrement des équipes, contrôle qualité, traitement des polygones et préparation des livrables de conformité.",
+      "imageUrl": "",
+      "media": []
+    },
+    {
+      "id": "green-inspection",
+      "title": "Inspection d’unités de production",
+      "organization": "Cabinet CFAD · Projet GREEN / BNETD",
+      "role": "Chef de mission · Consultance freelance",
+      "period": "2026",
+      "location": "Guiembé · Guitry · Kong · Zikisso",
+      "country": "Côte d’Ivoire",
+      "crops": ["Multi-filières"],
+      "sector": "Diagnostic technique",
+      "metric": "4 sites inspectés",
+      "summary": "Organisation d’une mission d’inspection après dix-huit mois d’arrêt d’activité, état des lieux des équipements et infrastructures, puis recommandations de remise en service.",
+      "imageUrl": "",
+      "media": []
+    },
+    {
+      "id": "coppicoop",
+      "title": "Conseil agricole en palmier à huile",
+      "organization": "COPPI COOP CA",
+      "role": "Chef de Zone",
+      "period": "Oct. 2024 – Oct. 2025",
+      "location": "Irobo, Côte d’Ivoire",
+      "country": "Côte d’Ivoire",
+      "crops": ["Palmier à huile"],
+      "sector": "Cultures pérennes",
+      "metric": "Environ 13 000 ha",
+      "summary": "Supervision des prestations de conseil agricole, contrôle des itinéraires techniques, coordination des équipes de terrain et formation continue des petits producteurs.",
+      "imageUrl": "",
+      "media": []
+    },
+    {
+      "id": "denguele",
+      "title": "Sensibilisation et diagnostic foncier",
+      "organization": "Cabinet CFAD · Étude DAD / BNETD",
+      "role": "Chef de mission · Consultance freelance",
+      "period": "2026",
+      "location": "Kabadougou & Folon",
+      "country": "Côte d’Ivoire",
+      "crops": ["Multi-filières"],
+      "sector": "Foncier agricole",
+      "metric": "",
+      "summary": "Mobilisation d’autorités, de leaders communautaires et de producteurs pour l’étude d’identification, diagnostic, géolocalisation et digitalisation du potentiel foncier agricole.",
+      "imageUrl": "",
+      "media": []
+    }
+  ],
+  "media": {
+    "eyebrow": "Pièces de mission",
+    "title": "Étendre le récit avec des médias vérifiables.",
+    "lede": "Le portfolio est conçu pour recevoir des comptes rendus, extraits vidéos, galeries photos et présentations.",
+    "blocks": [
+      { "icon": "video", "title": "Vidéos de terrain", "text": "Ajoute une URL YouTube, Vimeo ou Drive pour documenter une action, une visite ou une présentation." },
+      { "icon": "document", "title": "Documents de référence", "text": "Relie un rapport, une note méthodologique, une étude ou une présentation consultable en ligne." }
+    ]
+  },
+  "parcours": {
+    "eyebrow": "Parcours",
+    "title": "Des fondations techniques, une pratique ancrée.",
+    "items": [
+      { "period": "2021 — 2024", "title": "Diplôme d’Ingénieur des Techniques Agricoles", "text": "INP-HB, Génie rural · option Aménagement hydro-agricole." },
+      { "period": "2025", "title": "Coordination & suivi-évaluation", "text": "Formation en conduite de projets et programmes de développement agricole et humanitaire." },
+      { "period": "Outils", "title": "QGIS · KoboToolbox · Excel", "text": "Collecte, cartographie, délimitation de parcelles, traitement et présentation des données." },
+      { "period": "Langues", "title": "Français C2 · Anglais A2", "text": "Gouro et Malinké : langues maternelles." }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Échanger sur une mission",
+    "title": "Disponible pour renforcer une mission agricole, environnementale ou foncière.",
+    "address": "Yamoussoukro, Côte d’Ivoire · Mobilité terrain et permis ABCDE.",
+    "email": "boyeruchinoseibi@gmail.com",
+    "phone": "+225 07 67 41 32 35"
+  },
+  "footer": {
+    "line1": "SEI BI BOYE Ruchno · Portfolio professionnel",
+    "line2": "Conçu comme un carnet de mission consultable."
+  }
+}
