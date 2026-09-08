@@ -11,6 +11,7 @@ import type {
   SiteContent,
   TimelineItem,
 } from "@/types/content";
+import { ImageUploadField } from "./ImageUploadField";
 
 /** Mission, but with `crops` kept as a raw comma-separated string while
  * editing — converting it to/from an array on every keystroke (so the
@@ -191,8 +192,20 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
         </div>
       </div>
 
-      <div className="admin-body">
-        <section className="esection">
+      <div className="admin-layout">
+        <nav className="admin-nav">
+          <a href="#section-brand">En-tête</a>
+          <a href="#section-accueil">Accueil</a>
+          <a href="#section-expertises">Expertises</a>
+          <a href="#section-missions">Missions</a>
+          <a href="#section-medias">Médias</a>
+          <a href="#section-parcours">Parcours</a>
+          <a href="#section-contact">Contact</a>
+          <a href="#section-footer">Pied de page</a>
+        </nav>
+
+        <div className="admin-body">
+        <section className="esection" id="section-brand">
           <h2>En-tête</h2>
           <div className="efield">
             <label>Nom affiché</label>
@@ -204,7 +217,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </div>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-accueil">
           <h2>Accueil</h2>
           <div className="efield">
             <label>Phrase d’intro (au-dessus du titre)</label>
@@ -271,10 +284,13 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
             );
           })}
 
-          <div className="efield" style={{ marginTop: "0.8rem" }}>
-            <label>Photo de couverture (lien direct)</label>
-            <input value={hero.imageUrl} onChange={(e) => setHeroState({ ...hero, imageUrl: e.target.value })} placeholder="https://…" />
-            <p className="ehint">Laisse vide pour garder le visuel d’illustration par défaut.</p>
+          <div style={{ marginTop: "0.8rem" }}>
+            <ImageUploadField
+              label="Photo de couverture"
+              value={hero.imageUrl}
+              onChange={(url) => setHeroState({ ...hero, imageUrl: url })}
+              hint="Laisse vide pour garder le visuel d’illustration par défaut."
+            />
           </div>
           <div className="erow2">
             <div className="efield">
@@ -298,7 +314,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </div>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-expertises">
           <h2>Champ d’action (expertises)</h2>
           <div className="efield">
             <label>Étiquette</label>
@@ -338,7 +354,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </button>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-missions">
           <h2>Carnet de missions</h2>
           <div className="efield">
             <label>Étiquette</label>
@@ -424,11 +440,12 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
                 <label>Contexte et contribution</label>
                 <textarea value={mission.summary} onChange={(e) => setMissions(updateAt(missions, i, { summary: e.target.value }))} />
               </div>
-              <div className="efield">
-                <label>Photo (lien direct vers une image)</label>
-                <input value={mission.imageUrl || ""} onChange={(e) => setMissions(updateAt(missions, i, { imageUrl: e.target.value }))} placeholder="https://…" />
-                <p className="ehint">Colle un lien d’image (Google Drive en partage public, Imgur…). Laisse vide pour un repère par défaut.</p>
-              </div>
+              <ImageUploadField
+                label="Photo"
+                value={mission.imageUrl || ""}
+                onChange={(url) => setMissions(updateAt(missions, i, { imageUrl: url }))}
+                hint="Laisse vide pour un repère par défaut."
+              />
 
               <div className="media-list">
                 {mission.media.map((piece, j) => (
@@ -480,14 +497,22 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
                         onChange={(e) => setMissions(updateAt(missions, i, { media: updateAt(mission.media, j, { title: e.target.value }) }))}
                       />
                     </div>
-                    <div className="efield">
-                      <label>Lien (URL)</label>
-                      <input
+                    {piece.type === "image" ? (
+                      <ImageUploadField
+                        label="Image"
                         value={piece.url}
-                        onChange={(e) => setMissions(updateAt(missions, i, { media: updateAt(mission.media, j, { url: e.target.value }) }))}
-                        placeholder="https://…"
+                        onChange={(url) => setMissions(updateAt(missions, i, { media: updateAt(mission.media, j, { url }) }))}
                       />
-                    </div>
+                    ) : (
+                      <div className="efield">
+                        <label>Lien (URL)</label>
+                        <input
+                          value={piece.url}
+                          onChange={(e) => setMissions(updateAt(missions, i, { media: updateAt(mission.media, j, { url: e.target.value }) }))}
+                          placeholder="https://…"
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
                 <button
@@ -505,7 +530,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </button>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-medias">
           <h2>Pièces de mission (bandeau sombre)</h2>
           <div className="efield">
             <label>Étiquette</label>
@@ -543,7 +568,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           ))}
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-parcours">
           <h2>Parcours</h2>
           <div className="efield">
             <label>Étiquette</label>
@@ -582,7 +607,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </button>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-contact">
           <h2>Contact</h2>
           <div className="efield">
             <label>Étiquette</label>
@@ -608,7 +633,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           </div>
         </section>
 
-        <section className="esection">
+        <section className="esection" id="section-footer">
           <h2>Pied de page</h2>
           <div className="efield">
             <label>Ligne 1</label>
@@ -621,6 +646,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
         </section>
 
         <div className="admin-footer-space" />
+        </div>
       </div>
     </div>
   );

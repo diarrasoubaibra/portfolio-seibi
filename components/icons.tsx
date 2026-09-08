@@ -13,7 +13,7 @@ export function FieldMark({ className }: { className?: string }) {
     <svg viewBox="0 0 40 40" fill="none" className={className} aria-hidden="true">
       <circle cx="20" cy="20" r="19" stroke="#173f35" strokeWidth="1.3" />
       <path d="M20 6 L20 34 M6 20 L34 20" stroke="#173f35" strokeWidth="1" opacity=".5" />
-      <path d="M20 11 C25 15 25 21 20 29 C15 21 15 15 20 11 Z" fill="#c46c4d" />
+      <path d="M20 11 C25 15 25 21 20 29 C15 21 15 15 20 11 Z" fill="#dd6b40" />
     </svg>
   );
 }
@@ -22,7 +22,7 @@ export function FieldMarkSmall({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
       <circle cx="20" cy="20" r="19" fill="none" stroke="#173f35" strokeWidth="1.3" />
-      <path d="M20 11c5 4 5 10 0 18-5-8-5-14 0-18z" fill="#c46c4d" />
+      <path d="M20 11c5 4 5 10 0 18-5-8-5-14 0-18z" fill="#dd6b40" />
     </svg>
   );
 }

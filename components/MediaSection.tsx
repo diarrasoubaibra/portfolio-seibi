@@ -6,7 +6,7 @@ export function MediaSection({ media }: { media: SiteContent["media"] }) {
     <section id="medias" className="section-pad">
       <div className="wrap media-grid">
         <div>
-          <p className="eyebrow" style={{ color: "#ecd8a6" }}>
+          <p className="eyebrow" style={{ color: "#e7b662" }}>
             {media.eyebrow}
           </p>
           <h2>{media.title}</h2>
