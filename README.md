@@ -67,7 +67,12 @@ npm run dev
    - `GITHUB_OWNER` : ton nom d'utilisateur ou organisation GitHub.
    - `GITHUB_REPO` : le nom du dépôt.
    - `GITHUB_BRANCH` : `main` (ou la branche que l'hébergeur déploie).
-4. Déploie. Le site public est servi immédiatement ; l'Atelier est
+4. Sur Vercel, active le stockage des images (**Storage → Create Database →
+   Blob**, connecte-le au projet). Vercel ajoute automatiquement la variable
+   `BLOB_READ_WRITE_TOKEN` — rien à copier-coller. Sans ce store, l'upload
+   d'image depuis l'Atelier échoue en production (le repli disque local ne
+   fonctionne que sur `npm run dev`, pas sur un hébergeur serverless).
+5. Déploie. Le site public est servi immédiatement ; l'Atelier est
    accessible sur `/admin` avec le mot de passe défini à l'étape 3.
 
 Donne l'URL `https://ton-domaine/admin` et le mot de passe uniquement au

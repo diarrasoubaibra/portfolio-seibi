@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/auth";
-import { persistUpload } from "@/lib/github";
+import { persistUpload } from "@/lib/upload";
 
 // Comfortably under hosting platforms' request body limits (Vercel: 4.5 MB).
 const MAX_BYTES = 4 * 1024 * 1024;
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
   const buffer = Buffer.from(await file.arrayBuffer());
 
   try {
-    const result = await persistUpload(fileName, buffer);
+    const result = await persistUpload(fileName, buffer, file.type);
     return NextResponse.json({ ok: true, url: result.url, mode: result.mode });
   } catch (err) {
     console.error("[api/upload] échec de l’envoi:", err);
