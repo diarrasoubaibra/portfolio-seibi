@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type {
+  CustomSection,
+  CustomSectionListItem,
+  CustomSectionType,
   ExpertiseItem,
   MediaBlock,
   MediaPiece,
@@ -66,6 +69,30 @@ function emptyTimelineItem(): TimelineItem {
   return { period: "", title: "", text: "" };
 }
 
+function emptyCustomSection(): CustomSection {
+  return {
+    id: `s_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`,
+    enabled: true,
+    eyebrow: "",
+    title: "",
+    type: "text",
+    text: "",
+    items: [],
+    images: [],
+  };
+}
+
+function emptyCustomListItem(): CustomSectionListItem {
+  return { title: "", text: "" };
+}
+
+const CUSTOM_SECTION_TYPES: { value: CustomSectionType; label: string }[] = [
+  { value: "text", label: "Texte" },
+  { value: "gallery", label: "Galerie photo" },
+  { value: "list", label: "Liste de points" },
+  { value: "quote", label: "Citation" },
+];
+
 function updateAt<T>(arr: T[], index: number, patch: Partial<T>): T[] {
   return arr.map((item, i) => (i === index ? { ...item, ...patch } : item));
 }
@@ -114,6 +141,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
     title: initialContent.parcours.title,
   });
   const [timelineItems, setTimelineItems] = useState<TimelineItem[]>(initialContent.parcours.items);
+  const [customSections, setCustomSections] = useState<CustomSection[]>(initialContent.customSections || []);
   const [contact, setContact] = useState(initialContent.contact);
   const [footer, setFooter] = useState(initialContent.footer);
 
@@ -131,10 +159,25 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
       missions: missions.map(draftToMission),
       media: { ...mediaMeta, blocks: mediaBlocks },
       parcours: { ...parcoursMeta, items: timelineItems },
+      customSections,
       contact,
       footer,
     }),
-    [brand, hero, expertiseMeta, expertiseItems, missionsIntro, missions, mediaMeta, mediaBlocks, parcoursMeta, timelineItems, contact, footer],
+    [
+      brand,
+      hero,
+      expertiseMeta,
+      expertiseItems,
+      missionsIntro,
+      missions,
+      mediaMeta,
+      mediaBlocks,
+      parcoursMeta,
+      timelineItems,
+      customSections,
+      contact,
+      footer,
+    ],
   );
 
   async function handleLogout() {
@@ -200,6 +243,7 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           <a href="#section-missions">Missions</a>
           <a href="#section-medias">Médias</a>
           <a href="#section-parcours">Parcours</a>
+          <a href="#section-perso">Sections perso</a>
           <a href="#section-contact">Contact</a>
           <a href="#section-footer">Pied de page</a>
         </nav>
@@ -604,6 +648,212 @@ export function AdminEditor({ initialContent }: { initialContent: SiteContent })
           ))}
           <button type="button" className="add-btn" onClick={() => setTimelineItems([...timelineItems, emptyTimelineItem()])}>
             + Ajouter une étape
+          </button>
+        </section>
+
+        <section className="esection" id="section-perso">
+          <h2>Sections personnalisées</h2>
+          <p className="ehint" style={{ marginTop: "-0.6rem", marginBottom: "1rem" }}>
+            Ajoute autant de sections que tu veux (avis clients, partenaires, certifications…). Elles
+            s'affichent sur le site entre « Parcours » et « Contact », dans l'ordre ci-dessous. Une
+            section désactivée reste enregistrée mais n'apparaît pas sur le site public.
+          </p>
+
+          {customSections.map((section, i) => (
+            <div className="eitem" key={section.id}>
+              <div className="eitem-head">
+                <strong>{section.title || `Section ${i + 1}`}</strong>
+                <div className="eitem-tools">
+                  <button type="button" onClick={() => setCustomSections(moveAt(customSections, i, -1))} disabled={i === 0} title="Monter">
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCustomSections(moveAt(customSections, i, 1))}
+                    disabled={i === customSections.length - 1}
+                    title="Descendre"
+                  >
+                    ↓
+                  </button>
+                  <button type="button" onClick={() => setCustomSections(removeAt(customSections, i))} title="Supprimer">
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <label className="checkbox-field">
+                <input
+                  type="checkbox"
+                  checked={section.enabled}
+                  onChange={(e) => setCustomSections(updateAt(customSections, i, { enabled: e.target.checked }))}
+                />
+                Section visible sur le site
+              </label>
+
+              <div className="erow2">
+                <div className="efield">
+                  <label>Étiquette (facultatif)</label>
+                  <input value={section.eyebrow} onChange={(e) => setCustomSections(updateAt(customSections, i, { eyebrow: e.target.value }))} />
+                </div>
+                <div className="efield">
+                  <label>Titre</label>
+                  <input value={section.title} onChange={(e) => setCustomSections(updateAt(customSections, i, { title: e.target.value }))} />
+                </div>
+              </div>
+
+              <div className="efield">
+                <label>Type de contenu</label>
+                <select
+                  value={section.type}
+                  onChange={(e) => setCustomSections(updateAt(customSections, i, { type: e.target.value as CustomSectionType }))}
+                >
+                  {CUSTOM_SECTION_TYPES.map((t) => (
+                    <option value={t.value} key={t.value}>
+                      {t.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {section.type === "text" && (
+                <div className="efield">
+                  <label>Texte</label>
+                  <textarea
+                    value={section.text || ""}
+                    onChange={(e) => setCustomSections(updateAt(customSections, i, { text: e.target.value }))}
+                  />
+                </div>
+              )}
+
+              {section.type === "quote" && (
+                <>
+                  <div className="efield">
+                    <label>Citation</label>
+                    <textarea
+                      value={section.quote || ""}
+                      onChange={(e) => setCustomSections(updateAt(customSections, i, { quote: e.target.value }))}
+                    />
+                  </div>
+                  <div className="efield">
+                    <label>Auteur (facultatif)</label>
+                    <input
+                      value={section.quoteAuthor || ""}
+                      onChange={(e) => setCustomSections(updateAt(customSections, i, { quoteAuthor: e.target.value }))}
+                      placeholder="Ex. Nom du client, Nom de l’organisation…"
+                    />
+                  </div>
+                </>
+              )}
+
+              {section.type === "list" && (
+                <div className="media-list">
+                  {(section.items || []).map((item, j) => (
+                    <div className="media-item" key={j}>
+                      <div className="eitem-head">
+                        <strong>Point {j + 1}</strong>
+                        <div className="eitem-tools">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setCustomSections(updateAt(customSections, i, { items: removeAt(section.items || [], j) }))
+                            }
+                            title="Supprimer"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                      <div className="efield">
+                        <label>Titre</label>
+                        <input
+                          value={item.title}
+                          onChange={(e) =>
+                            setCustomSections(
+                              updateAt(customSections, i, { items: updateAt(section.items || [], j, { title: e.target.value }) }),
+                            )
+                          }
+                        />
+                      </div>
+                      <div className="efield">
+                        <label>Texte</label>
+                        <textarea
+                          value={item.text}
+                          onChange={(e) =>
+                            setCustomSections(
+                              updateAt(customSections, i, { items: updateAt(section.items || [], j, { text: e.target.value }) }),
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="add-btn"
+                    onClick={() =>
+                      setCustomSections(updateAt(customSections, i, { items: [...(section.items || []), emptyCustomListItem()] }))
+                    }
+                  >
+                    + Ajouter un point
+                  </button>
+                </div>
+              )}
+
+              {section.type === "gallery" && (
+                <div className="media-list">
+                  {(section.images || []).map((image, j) => (
+                    <div className="media-item" key={j}>
+                      <div className="eitem-head">
+                        <strong>Photo {j + 1}</strong>
+                        <div className="eitem-tools">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setCustomSections(updateAt(customSections, i, { images: removeAt(section.images || [], j) }))
+                            }
+                            title="Supprimer"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                      <ImageUploadField
+                        label="Image"
+                        value={image.url}
+                        onChange={(url) =>
+                          setCustomSections(updateAt(customSections, i, { images: updateAt(section.images || [], j, { url }) }))
+                        }
+                      />
+                      <div className="efield">
+                        <label>Légende (facultatif)</label>
+                        <input
+                          value={image.caption}
+                          onChange={(e) =>
+                            setCustomSections(
+                              updateAt(customSections, i, { images: updateAt(section.images || [], j, { caption: e.target.value }) }),
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="add-btn"
+                    onClick={() =>
+                      setCustomSections(
+                        updateAt(customSections, i, { images: [...(section.images || []), { url: "", caption: "" }] }),
+                      )
+                    }
+                  >
+                    + Ajouter une photo
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+          <button type="button" className="add-btn" onClick={() => setCustomSections([...customSections, emptyCustomSection()])}>
+            + Ajouter une section
           </button>
         </section>
 

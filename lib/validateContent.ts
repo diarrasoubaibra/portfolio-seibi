@@ -30,6 +30,22 @@ export function validateContent(body: unknown): string | null {
 
   if (!c.media || !Array.isArray(c.media.blocks)) return "La section Médias est incomplète.";
   if (!c.parcours || !Array.isArray(c.parcours.items)) return "La section Parcours est incomplète.";
+
+  if (!Array.isArray(c.customSections)) return "Les sections personnalisées doivent être une liste.";
+  const validTypes = new Set(["text", "gallery", "list", "quote"]);
+  for (const section of c.customSections) {
+    if (typeof section.title !== "string" || !section.title.trim()) {
+      return "Chaque section personnalisée doit avoir un titre.";
+    }
+    if (!validTypes.has(section.type)) return `La section « ${section.title} » a un type invalide.`;
+    if (section.type === "list" && !Array.isArray(section.items)) {
+      return `La section « ${section.title} » : les points doivent être une liste.`;
+    }
+    if (section.type === "gallery" && !Array.isArray(section.images)) {
+      return `La section « ${section.title} » : les images doivent être une liste.`;
+    }
+  }
+
   if (!c.contact || typeof c.contact.email !== "string") return "La section Contact est incomplète.";
   if (!c.footer || typeof c.footer.line1 !== "string") return "Le pied de page est incomplet.";
 

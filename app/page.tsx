@@ -5,6 +5,7 @@ import { Expertise } from "@/components/Expertise";
 import { Missions } from "@/components/Missions";
 import { MediaSection } from "@/components/MediaSection";
 import { Timeline } from "@/components/Timeline";
+import { CustomSections } from "@/components/CustomSections";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -20,6 +21,7 @@ export default function HomePage() {
         <Missions missionsIntro={content.missionsIntro} missions={content.missions} />
         <MediaSection media={content.media} />
         <Timeline parcours={content.parcours} />
+        <CustomSections sections={content.customSections} />
         <Contact contact={content.contact} />
       </main>
       <Footer footer={content.footer} />

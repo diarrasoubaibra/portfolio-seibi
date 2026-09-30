@@ -47,6 +47,37 @@ export type MediaBlock = {
   text: string;
 };
 
+export type CustomSectionType = "text" | "gallery" | "list" | "quote";
+
+export type CustomSectionImage = {
+  url: string;
+  caption: string;
+};
+
+export type CustomSectionListItem = {
+  title: string;
+  text: string;
+};
+
+/**
+ * A section the owner can add from the Atelier without a developer, beyond
+ * the fixed built-in sections (Accueil, Missions, Expertises...). Kept to a
+ * small set of pre-designed block types (rather than a free HTML editor) so
+ * it can't be broken visually — flexible in count and content, not in markup.
+ */
+export type CustomSection = {
+  id: string;
+  enabled: boolean;
+  eyebrow: string;
+  title: string;
+  type: CustomSectionType;
+  text?: string;
+  quote?: string;
+  quoteAuthor?: string;
+  items?: CustomSectionListItem[];
+  images?: CustomSectionImage[];
+};
+
 export type SiteContent = {
   brand: {
     name: string;
@@ -91,6 +122,7 @@ export type SiteContent = {
     title: string;
     items: TimelineItem[];
   };
+  customSections: CustomSection[];
   contact: {
     eyebrow: string;
     title: string;

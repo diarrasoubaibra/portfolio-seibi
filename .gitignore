@@ -29,3 +29,9 @@ next-env.d.ts
 
 # vercel CLI (créé localement par `vercel link`, pas un secret mais pas à versionner)
 .vercel
+
+# images uploadées depuis l'Atelier en local (repli disque quand
+# BLOB_READ_WRITE_TOKEN n'est pas défini) — en production ça va sur Vercel
+# Blob, jamais dans le dépôt. Sans cette ligne, tester l'upload en local
+# committe des photos de test dans le repo (c'est ce qui est arrivé avant).
+/public/uploads/
